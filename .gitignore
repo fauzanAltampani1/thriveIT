@@ -1,4 +1,2 @@
 node_modules/
-web/dist/
-reel/out/
-*.part.mp4
+dist/
