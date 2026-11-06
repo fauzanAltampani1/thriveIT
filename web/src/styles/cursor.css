@@ -1,0 +1,8 @@
+/* The pixel cursor and the service label that rides on it in the hero. */
+.cur{position:fixed;left:0;top:0;z-index:50;pointer-events:none;display:flex;align-items:flex-start;gap:8px;opacity:0;transition:opacity .2s}
+.cur.on{opacity:1}
+.cur-px{display:block;width:10px;height:10px;border-radius:50%;background:var(--ac);transition:width .2s,height .2s}
+.cur.hot .cur-px{width:14px;height:14px}
+.cur-lb{font:700 11px/1 var(--font-ui);letter-spacing:.06em;color:var(--ink);background:var(--ac);padding:4px 6px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s;white-space:nowrap}
+.cur.hot .cur-lb{opacity:1;transform:none}
+@media (hover:none){.cur{display:none}}

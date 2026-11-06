@@ -1,0 +1,51 @@
+/* ---------- 03 workflow: pinned; a drum of lines rolls in 3D with scroll, the panel follows the step at its center ---------- */
+.wf{max-width:1160px;margin:0 auto;--fs:64px;--lh:76px}
+.wf-track{position:relative;height:calc(340vh + 2 * var(--tx))}
+.wf-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;display:flex;flex-direction:column;padding-top:76px;padding-bottom:24px}
+.wf-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center}
+.wf-info{display:flex;flex-direction:column;gap:40px;min-width:0}
+.wf-cur{display:flex;flex-direction:column;gap:14px;min-height:200px}
+.wf-cur.swap>*{animation:capin .4s cubic-bezier(.2,.8,.2,1) both}
+.wf-cur.swap>:nth-child(2){animation-delay:40ms}
+.wf-cur.swap>:nth-child(3){animation-delay:80ms}
+.wf-cur.swap>:nth-child(4){animation-delay:120ms}
+.wf-cur-top{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.14em;color:var(--ac);font-variant-numeric:tabular-nums}
+.wf-cur h3{margin:0;font-family:var(--font-head);font-weight:400;font-size:48px;line-height:1.1;color:var(--fg)}
+.wf-cur p{margin:0;font-size:15px;line-height:1.7;color:var(--soft);max-width:40ch}
+.wf .out{align-self:flex-start;display:inline-flex;align-items:center;padding:7px 10px;border:1px solid var(--ac);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+.wf-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--hair)}
+.wf-li{-webkit-appearance:none;appearance:none;width:100%;display:grid;grid-template-columns:3ch minmax(0,1fr) 110px;align-items:center;gap:14px;min-height:44px;margin:0;padding:0 2px;background:none;border:0;border-bottom:1px solid var(--hair);color:var(--muted);font:400 13px/1 var(--font-ui);letter-spacing:.06em;text-align:left;cursor:pointer;transition:color .2s}
+.wf-li:hover{color:var(--fg)}
+.wf-li.done{color:var(--soft)}
+.wf-li.on{color:var(--ac)}
+.wf-li:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+.mb{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:2px}
+.mb i{display:block;height:6px;background:var(--dim)}
+.mb i.on{background:var(--ac)}
+
+/* the drum: lines sit on a cylinder; the one facing you is the step being read */
+.drum-wrap{position:relative;height:100%;max-height:560px;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:900px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent)}
+.drum{position:relative;width:100%;height:var(--lh);transform-style:preserve-3d}
+.drum .ln{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:var(--fs);line-height:1;color:var(--fg);white-space:nowrap;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,opacity}
+.drum .ln.kw{color:var(--soft)}
+.drum .ln.kw.on{color:var(--ac)}
+.drum-mark{position:absolute;top:50%;width:10px;height:calc(var(--lh) + 8px);transform:translateY(-50%);border:2px solid var(--ac);pointer-events:none}
+.drum-mark.l{left:0;border-right:0}
+.drum-mark.r{right:0;border-left:0}
+
+@media (max-width:1180px){.wf{--fs:48px;--lh:58px}}
+@media (max-width:900px){
+  .wf{--fs:32px;--lh:40px}
+  .wf-stage{padding-top:68px}
+  .wf-body{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:16px;align-items:stretch}
+  .drum-wrap{order:-1;max-height:none}
+  .wf-info{gap:16px}
+  .wf-cur{min-height:0;gap:8px}
+  .wf-cur h3{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wf-cur p{font-size:14px}
+  .wf-list{flex-direction:row;gap:6px;border-top:0}
+  .wf-list li{flex:1;min-width:0}
+  .wf-li{grid-template-columns:minmax(0,1fr);gap:6px;min-height:44px;padding:6px 0;border-bottom:0;text-align:center}
+  .wf-li .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+@media (max-width:640px){.dsk-k.wf-k{display:none}}

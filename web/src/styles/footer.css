@@ -1,0 +1,3 @@
+/* ---------- footer ---------- */
+.foot{padding-block:12px 24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.foot-logo{display:block;height:22px;width:auto;color:var(--fg);overflow:visible}

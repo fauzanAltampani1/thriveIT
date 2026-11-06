@@ -1,0 +1,12 @@
+# ThrivIT with Caddy: HTTPS certificates are fetched and renewed automatically.
+# Copy the contents of web/dist to /var/www/thrivit.
+thrivit.dev, www.thrivit.dev {
+	root * /var/www/thrivit
+	encode zstd gzip
+
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+	header /index.html Cache-Control "no-cache"
+
+	file_server
+}

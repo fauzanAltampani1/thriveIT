@@ -1,0 +1,23 @@
+/* Colour and type tokens. Sections painted white override them in background.css (.light). */
+:root{
+  --bg:#000000;
+  --fg:#fafafa;
+  --soft:#a3a3a3;
+  --muted:#8f8f8f;
+  --line:#262626;
+  --hair:#171717;
+  --dim:#333333;
+  --past:#737373;
+  --ac:#0ECEE1;
+  --err:#ff8080;
+  --ink:#000000;
+  /* type pairing A: DotGothic16 for titles only, on its 16px grid (32 / 48); Space Mono for everything else */
+  --font-head:'DotGothic16', ui-monospace, monospace;
+  --font-body:'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-ui:'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --w-ui:700;
+  --s-head:32px;
+  --s-title:48px;
+  color-scheme:dark;
+}
+@media (max-width:720px){:root{--s-title:32px}}

@@ -1,0 +1,6 @@
+/* --tx: how much scroll one section-to-section swap takes. Each section after the hero overlaps the one before by
+   one screen + --tx, and every pinned track is --tx longer at each end, so both hold still while the edge sweeps */
+:root{--tx:100vh}
+@supports (height:100svh){:root{--tx:100svh}}
+#dossier,#workflow,#work,#connect{margin-top:calc(-100vh - var(--tx));margin-top:calc(-100svh - var(--tx))}
+.tx-probe{position:absolute;top:0;left:0;width:1px;height:var(--tx);visibility:hidden;pointer-events:none}

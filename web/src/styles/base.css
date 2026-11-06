@@ -1,0 +1,10 @@
+/* Reset and small utilities shared by every section. */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:transparent;color:var(--fg);font-family:var(--font-ui);overflow-x:clip;-webkit-font-smoothing:antialiased;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--soft);text-decoration:none}
+::selection{background:var(--ac);color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px}
+.ico{display:block;width:20px;height:20px;flex:none}
+@keyframes bl{50%{opacity:.15}}

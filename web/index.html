@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ThrivIT | Studio digital untuk UMKM</title>
+<meta name="description" content="ThrivIT adalah studio digital kecil yang membuat aplikasi kasir, website, aplikasi web, database, dan otomasi sederhana untuk UMKM.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<canvas class="bg-field" id="bgField" aria-hidden="true"></canvas>
+<canvas class="bg-smoke" id="bgSmoke" aria-hidden="true"></canvas>
+<div class="tx-probe" id="txProbe" aria-hidden="true"></div>
+
+<main>
+<!-- 01 HERO -->
+<div class="track" id="top">
+  <div class="stage" id="stage">
+    <h1 class="sr">ThrivIT: bantu usaha Anda tumbuh digital.</h1>
+
+    <div class="tiles" id="tiles" role="group" aria-label="Layanan"></div>
+
+    <div class="hero-main">
+      <div class="word" id="wrap" aria-hidden="true">
+        <div class="L" id="logo"><span class="wd"><span class="gl off" id="gl"></span></span></div>
+        <div class="L L-out" id="layerA"><span class="wd"></span></div>
+        <div class="L L-out" id="layerB"><span class="wd"></span></div>
+      </div>
+
+      <div class="cap" id="cap" aria-live="polite">
+        <span class="cap-k" id="capK">00 // _thrivit</span>
+        <span class="cap-t" id="capT">Bantu usaha Anda tumbuh digital.</span>
+        <p class="cap-p" id="capP">Studio kecil yang membuat kasir, website, dan sistem sederhana untuk UMKM.</p>
+      </div>
+
+      <div class="acts">
+        <a class="btn btn-p" href="#dossier">[ Jelajahi ]</a>
+        <a class="btn" href="#connect">[ Hubungi ]</a>
+      </div>
+    </div>
+
+    <div class="sbar">
+      <span class="sbar-l">SCROLL <span class="arw" aria-hidden="true">↓</span></span>
+      <span class="segs" id="segs" aria-hidden="true"><i class="seg on"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i></span>
+      <span id="segLabel">00 / 05</span>
+      <span class="vr" aria-hidden="true"></span>
+      <button type="button" class="loop" id="loopBtn" aria-pressed="true" aria-label="Ulangi animasi logo"><span class="sw" aria-hidden="true"><i></i></span><span aria-hidden="true">LOOP</span><span class="loop-v" id="loopV" aria-hidden="true">ON</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- 02 DOSSIER -->
+<section class="dsk light" id="dossier" aria-labelledby="dossier-t">
+  <h2 class="sr" id="dossier-t">Dossier: lima file tentang kami</h2>
+  <div class="dsk-track" id="dTrack">
+    <div class="dsk-stage" id="dStage">
+      <div class="dsk-top">
+        <span class="now"><span class="now-l"><svg class="ico-s" data-icon="play" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span id="dNowT">LOADING 0%</span></span></span>
+        <div class="dsk-k"><span><b>02</b> // DOSSIER</span><span>SCROLL UNTUK MEMUAT · KLIK UNTUK LOMPAT</span></div>
+      </div>
+      <div class="dsk-mid">
+        <div class="pc" id="pc">
+          <div class="pc-box">
+            <svg class="pc-art" id="pcArt" viewBox="0 0 100 86" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg>
+            <div class="scr" id="scr" role="region" aria-label="Layar dossier">
+              <div class="scr-in" id="scrIn">
+                <div class="scr-bar"><span id="scrSys">DOSSIER // LOADING</span><span class="scr-btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="scr-title" id="scrTitle">Memuat 0%</div>
+                <div class="scr-rule" id="scrRule" aria-hidden="true"></div>
+                <ol class="scr-lines" id="scrLines"></ol>
+                <div class="scr-foot"><svg id="scrIco" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span id="scrMeta">LOADING 0/5</span></div>
+              </div>
+              <canvas class="scr-nz" id="scrNz" width="64" height="42" aria-hidden="true"></canvas>
+            </div>
+          </div>
+          <div class="dtabs" role="group" aria-label="File dossier">
+            <button type="button" class="dtab l" id="dt-0" style="--y:16%" aria-pressed="false" aria-controls="scr"><svg class="ico" data-icon="prompt" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span class="nm">01_TENTANG.TXT</span><span class="fs"></span></button>
+            <button type="button" class="dtab r" id="dt-1" style="--y:28%" aria-pressed="false" aria-controls="scr"><svg class="ico" data-icon="target" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span class="nm">02_LAYANAN.TXT</span><span class="fs"></span></button>
+            <button type="button" class="dtab l" id="dt-2" style="--y:40%" aria-pressed="false" aria-controls="scr"><svg class="ico" data-icon="cycle" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span class="nm">03_CARA.TXT</span><span class="fs"></span></button>
+            <button type="button" class="dtab r" id="dt-3" style="--y:52%" aria-pressed="false" aria-controls="scr"><svg class="ico" data-icon="unlock" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span class="nm">04_PRINSIP.TXT</span><span class="fs"></span></button>
+            <button type="button" class="dtab l" id="dt-4" style="--y:64%" aria-pressed="false" aria-controls="scr"><svg class="ico" data-icon="check" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span class="nm">05_JUJUR.TXT</span><span class="fs"></span></button>
+          </div>
+        </div>
+      </div>
+      <ol class="dsk-read" id="dRead" aria-label="Isi file"></ol>
+      <div class="sbar dsk-bar" aria-hidden="true">
+        <span class="sbar-l" id="dHint">SCROLL <span class="arw">↓</span></span>
+        <span class="segs" id="dSegs"><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i></span>
+        <span id="dPos">LOADING 0%</span>
+      </div>
+    </div>
+  </div>
+  <p class="sr" id="dLive" aria-live="polite"></p>
+</section>
+
+<!-- 03 WORKFLOW -->
+<section class="wf" id="workflow" aria-labelledby="workflow-t">
+  <h2 class="sr" id="workflow-t">Alur kerja: dari obrolan pertama sampai sistem jalan</h2>
+  <ol class="sr">
+    <li>01 Kenalan: diskusi soal usaha Anda dan bagian yang paling merepotkan. Hasil: daftar kebutuhan.</li>
+    <li>02 Rancang: menyusun alur, struktur data, dan sketsa tampilan. Hasil: rancangan sistem.</li>
+    <li>03 Bangun: dikerjakan bertahap di server uji, dengan demo tiap minggu. Hasil: demo mingguan.</li>
+    <li>04 Rilis: uji coba bersama, perbaiki, lalu sistem ditayangkan. Hasil: sistem live.</li>
+    <li>05 Dampingi: panduan pemakaian, dokumentasi, dan bantuan setelah rilis. Hasil: panduan dan bantuan.</li>
+  </ol>
+  <div class="wf-track" id="wTrack">
+    <div class="wf-stage" id="wStage">
+      <div class="dsk-top">
+        <span class="now"><span class="now-l"><svg class="ico-s" data-icon="play" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span id="wNowT">01 / KENALAN</span></span></span>
+        <div class="dsk-k wf-k"><span><b>03</b> // ALUR KERJA</span><span>5 LANGKAH · SCROLL UNTUK MEMUTAR</span></div>
+      </div>
+      <div class="wf-body">
+        <div class="wf-info">
+          <div class="wf-cur" id="wCur" aria-hidden="true">
+            <div class="wf-cur-top"><svg class="ico" id="wIco" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span id="wStepN">STEP 01 / 05</span></div>
+            <h3 id="wTitle">Kenalan</h3>
+            <p id="wDesc">Diskusi soal usaha Anda dan bagian yang paling merepotkan.</p>
+            <span class="out" id="wOut">Hasil // Daftar kebutuhan</span>
+          </div>
+          <ol class="wf-list" id="wList" aria-label="Lompat ke langkah">
+            <li><button type="button" class="wf-li on"><span class="n">01</span><span class="t">Kenalan</span><span class="mb" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="wf-li"><span class="n">02</span><span class="t">Rancang</span><span class="mb" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="wf-li"><span class="n">03</span><span class="t">Bangun</span><span class="mb" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="wf-li"><span class="n">04</span><span class="t">Rilis</span><span class="mb" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="wf-li"><span class="n">05</span><span class="t">Dampingi</span><span class="mb" aria-hidden="true"></span></button></li>
+          </ol>
+        </div>
+        <div class="drum-wrap" aria-hidden="true">
+          <div class="drum" id="drum"></div>
+          <span class="drum-mark l"></span><span class="drum-mark r"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CURRENT WORK -->
+<section class="cw light" id="work" aria-labelledby="work-t">
+  <h2 class="sr" id="work-t">Proyek yang sedang berjalan</h2>
+  <div class="cw-back" aria-hidden="true">
+    <div class="cw-back-in">
+      <div class="cw-word" id="cwTop"></div>
+      <div class="cw-low">
+        <div class="cw-meta"><span><b>04</b> // PROYEK</span><span>1 BERJALAN · 2 SLOT BUKA</span></div>
+        <div class="cw-word" id="cwBot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cw-cards" id="cwCards">
+    <div class="cw-slot">
+      <article class="card" style="--i:0" aria-labelledby="cw1">
+        <div class="card-top"><span>TX-01 // <b>KLIEN PERTAMA</b></span><span class="chip">BERJALAN · SPRINT 02</span></div>
+        <div class="card-body">
+          <div class="card-txt">
+            <h3 id="cw1">HIPMI Kabupaten Bandung</h3>
+            <dl class="facts">
+              <dt>LINGKUP</dt><dd>Website organisasi dan database anggota.</dd>
+              <dt>MASALAH</dt><dd>Data anggota masih tersebar, dan pengumuman dikirim satu per satu.</dd>
+              <dt>SOLUSI</dt><dd>Satu direktori anggota dengan login, halaman tiap anggota, dan pengumuman dari satu tempat.</dd>
+            </dl>
+          </div>
+          <div class="card-vis">
+            <span class="kick">TAHAPAN</span>
+            <ol class="road">
+              <li class="done"><svg class="ico" data-icon="check" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span>Rancangan alur dan tampilan<small>SELESAI</small></span></li>
+              <li class="act"><svg class="ico" data-icon="play" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span>Pengerjaan database dan tampilan<small>BERJALAN · SPRINT 02</small></span></li>
+              <li class="next"><svg class="ico" data-icon="dash" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg><span>Uji coba dan peluncuran<small>BERIKUTNYA</small></span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="card-foot"><span>01 / 05</span><span>SCROLL UNTUK TIAP TAHAP ↓</span></div>
+      </article>
+    </div>
+
+    <div class="cw-slot">
+      <article class="card is-done" style="--i:1" aria-labelledby="cw2">
+        <div class="card-top"><span>TX-01 // <b>TAHAP 01</b></span><span class="chip done">SELESAI</span></div>
+        <div class="card-body">
+          <div class="card-txt">
+            <h3 id="cw2">Rancangan alur dan tampilan</h3>
+            <p>Struktur database, alur sistem, dan sketsa tampilan.</p>
+            <span class="out">Hasil // Rancangan sistem</span>
+          </div>
+          <div class="card-big" aria-hidden="true">P1</div>
+        </div>
+        <div class="card-foot"><span>02 / 05</span><span>HIPMI KAB. BANDUNG</span></div>
+      </article>
+    </div>
+
+    <div class="cw-slot">
+      <article class="card is-act" style="--i:2" aria-labelledby="cw3">
+        <div class="card-top"><span>TX-01 // <b>TAHAP 02</b></span><span class="chip">BERJALAN · SPRINT 02</span></div>
+        <div class="card-body">
+          <div class="card-txt">
+            <h3 id="cw3">Pengerjaan database dan tampilan</h3>
+            <p>Dikerjakan bertahap di server uji, dengan demo di akhir setiap minggu.</p>
+            <span class="out">Hasil // Demo mingguan</span>
+          </div>
+          <div class="sprints" aria-label="Sprint 01 selesai, sprint 02 berjalan">
+            <span class="ok"><i></i>S01</span>
+            <span class="now"><i></i>S02</span>
+            <span class="q"><i></i>LANJUT</span>
+          </div>
+        </div>
+        <div class="card-foot"><span>03 / 05</span><span>HIPMI KAB. BANDUNG</span></div>
+      </article>
+    </div>
+
+    <div class="cw-slot">
+      <article class="card" style="--i:3" aria-labelledby="cw4">
+        <div class="card-top"><span>TX-01 // <b>TAHAP 03</b></span><span class="chip next">BERIKUTNYA</span></div>
+        <div class="card-body">
+          <div class="card-txt">
+            <h3 id="cw4">Uji coba dan peluncuran</h3>
+            <p>Cek keamanan, uji coba bersama, lalu situs ditayangkan.</p>
+            <span class="out">Hasil // Sistem live</span>
+          </div>
+          <div class="card-big" aria-hidden="true">P3</div>
+        </div>
+        <div class="card-foot"><span>04 / 05</span><span>HIPMI KAB. BANDUNG</span></div>
+      </article>
+    </div>
+
+    <div class="cw-slot">
+      <article class="card open" style="--i:4" aria-labelledby="cw5">
+        <div class="card-top"><span>TX-02 // <b>SLOT TERBUKA</b></span><span class="chip">MENERIMA PROYEK</span></div>
+        <div class="card-body">
+          <div class="card-txt">
+            <h3 id="cw5">Proyek Anda berikutnya.</h3>
+            <p>Kami sengaja ambil sedikit proyek supaya tiap klien terurus. Anda bicara langsung dengan developernya.</p>
+            <a class="btn btn-p" href="#connect">[ Ajukan proyek ]</a>
+          </div>
+          <div class="slots2" aria-hidden="true"><span><i></i>SLOT 01</span><span><i></i>SLOT 02</span></div>
+        </div>
+        <div class="card-foot"><span>05 / 05</span><span>2 SLOT TERSEDIA</span></div>
+      </article>
+    </div>
+    <div class="cw-tx" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- 05 CONNECT -->
+<section class="cn" id="connect" aria-labelledby="connect-t">
+ <div class="cn-pin">
+  <header class="cn-h">
+    <span class="kick">05 // KONTAK</span>
+    <h2 class="ttl" id="connect-t">Punya rencana? Mari ngobrol.</h2>
+    <p class="sub">Ceritakan kebutuhan Anda, kami segera membalas.</p>
+  </header>
+
+  <div class="cn-stage" id="cnStage">
+    <div class="env" id="env">
+      <div class="env-in" aria-hidden="true">
+        <div class="env-back"></div>
+        <div class="peek" id="peek">
+          <div class="sh-top"><span>UNTUK: _THRIVIT</span><span class="mini sh-back">↩ Lipat lagi</span></div>
+          <div class="peek-lines"></div>
+        </div>
+      </div>
+      <div class="env-front" aria-hidden="true">
+        <svg class="env-ln" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="0,0 50,60 100,0" vector-effect="non-scaling-stroke"></polyline><polyline points="0,100 50,52 100,100" vector-effect="non-scaling-stroke"></polyline></svg>
+        <svg class="env-logo" viewBox="130 130 1784 495" role="img" aria-label="_thrivit"></svg>
+      </div>
+      <div class="env-flap" aria-hidden="true">
+        <svg class="env-ln" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="0,0 50,100 100,0" vector-effect="non-scaling-stroke"></polyline></svg>
+      </div>
+      <button type="button" class="seal" id="seal" aria-expanded="false" aria-controls="sheet" aria-label="Buka segel dan tampilkan form kontak"><span class="wax"><svg viewBox="130 130 500 495" class="seal-t" aria-hidden="true" focusable="false"></svg></span></button>
+    </div>
+    <p class="env-hint" id="envHint" aria-hidden="true"><span class="arw">↑</span> BUKA SEGEL UNTUK MENULIS KE KAMI</p>
+
+    <div class="sheet" id="sheet" hidden>
+      <div class="sh-top"><span>UNTUK: _THRIVIT</span><button type="button" class="mini sh-back" id="foldBack" aria-controls="sheet">↩ Lipat lagi</button></div>
+      <div class="sh-ch">
+        <div class="sh-c">
+          <svg class="ico" data-icon="chat" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg>
+          <div class="sh-lb"><small>WHATSAPP</small><span id="waNum">[NOMOR WA]</span></div>
+          <a class="mini" id="waLink" href="#connect" target="_blank" rel="noopener" hidden>Chat</a>
+        </div>
+        <div class="sh-c">
+          <svg class="ico" data-icon="mail" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true" focusable="false"></svg>
+          <div class="sh-lb"><small>EMAIL</small><span id="mailAddr">itthrived@gmail.com</span></div>
+          <button type="button" class="mini" id="copyMail">Salin</button>
+        </div>
+      </div>
+
+      <form class="inq" id="inq" novalidate>
+        <div class="row2">
+          <div class="fld"><label for="f-name">NAMA</label><input id="f-name" name="name" autocomplete="name" placeholder="Nama Anda" required></div>
+          <div class="fld"><label for="f-co">USAHA / ORGANISASI</label><input id="f-co" name="company" autocomplete="organization" placeholder="Opsional"></div>
+        </div>
+        <div class="row2">
+          <div class="fld"><label for="f-contact">KONTAK (EMAIL / WA)</label><input id="f-contact" name="contact" autocomplete="email" placeholder="nama@usaha.com atau 08…" required></div>
+          <div class="fld"><label for="f-svc">LAYANAN</label>
+            <div class="sel"><select id="f-svc" name="service">
+              <option>Aplikasi Kasir (POS)</option>
+              <option>Website Usaha</option>
+              <option>Aplikasi Web Custom</option>
+              <option>Database &amp; Pendataan</option>
+              <option>Otomasi Pekerjaan</option>
+              <option>Belum tahu</option>
+            </select></div>
+          </div>
+        </div>
+        <div class="fld"><label for="f-sum">RINGKASAN PROYEK</label><textarea id="f-sum" name="summary" placeholder="Apa yang ingin dibuat, dan apa yang paling merepotkan sekarang?" required></textarea></div>
+        <p class="err" id="inqErr" role="alert" hidden></p>
+        <div class="inq-acts">
+          <button type="submit" class="btn btn-p">[ Susun Pesan ]</button>
+          <small>Pesan disusun di sini, lalu Anda kirim lewat WhatsApp atau email.</small>
+        </div>
+        <div class="ready" id="ready" hidden>
+          <span class="ready-k">PESAN SIAP // PILIH CARA KIRIM</span>
+          <pre id="msg"></pre>
+          <div class="ready-acts">
+            <a class="btn btn-p" id="sendWa" href="#connect" target="_blank" rel="noopener" hidden>[ Kirim via WhatsApp ]</a>
+            <a class="btn" id="sendMail" href="#connect">[ Kirim via email ]</a>
+            <button type="button" class="btn" id="copyMsg">[ Salin pesan ]</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <svg class="foot-logo" id="footLogo" viewBox="130 130 1784 495" role="img" aria-label="ThrivIT"></svg>
+    <span>© 2026 THRIVIT · STUDIO DIGITAL UNTUK UMKM.</span>
+    <a class="mini" href="#top">Ke atas</a>
+  </footer>
+ </div>
+ <div class="cn-tx" aria-hidden="true"></div>
+</section>
+</main>
+
+<div class="cur" id="cur" aria-hidden="true"><i class="cur-px"></i><span class="cur-lb" id="curLb"></span></div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

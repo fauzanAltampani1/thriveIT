@@ -1,0 +1,12 @@
+/* ---------- shared section frame ---------- */
+.sec{max-width:1160px;margin:0 auto;padding-block:120px;scroll-margin-top:0}
+@media (max-width:720px){.sec{padding-block:80px}}
+.sec-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:56px}
+.sec-h>div{display:flex;flex-direction:column;gap:16px;min-width:0}
+.kick{font-size:12px;letter-spacing:.14em;color:var(--muted)}
+.ttl{margin:0;font-family:var(--font-head);font-weight:400;font-size:var(--s-title);line-height:1.17;color:var(--fg);text-wrap:balance}
+.sub{margin:0;font-size:15px;line-height:1.7;color:var(--soft);max-width:52ch}
+.meta{font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.mini{-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;background:none;border:1px solid var(--line);border-radius:2px;font:700 11px/1 var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--fg);cursor:pointer;text-decoration:none;white-space:nowrap}
+.mini:hover{border-color:var(--fg)}
+.mini:focus-visible{outline:2px solid var(--ac);outline-offset:2px}

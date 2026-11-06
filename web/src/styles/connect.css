@@ -1,0 +1,106 @@
+/* ---------- 05 connect: a sealed airmail envelope; breaking the seal pulls out the letter with the form ---------- */
+.cn{--paper:#e9f6f7;--ink2:#04292d;--ink-soft:#3e6266;--env:#111111;--env-hi:#161616;--env-line:#2a2a2a;--stripe:repeating-linear-gradient(-45deg,var(--ac) 0 9px,#000 9px 14px,#4a4a4a 14px 23px,#000 23px 28px)}
+.cn{max-width:1160px;margin-inline:auto}
+.cn-pin{position:sticky;top:0;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding-top:72px}
+.cn-tx{height:var(--tx)}
+.cn-h{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.cn-h .sub{margin-inline:auto}
+.cn-stage{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding-block:32px 24px}
+
+.env{position:relative;width:min(680px,100%,max(240px,calc((100svh - 430px) * 1.55)));aspect-ratio:1.55;perspective:1400px;container-type:inline-size;transition:opacity .5s ease,transform .6s cubic-bezier(.5,0,.75,0)}
+.env.away{opacity:0;transform:translateY(60px)}
+.env-in{position:absolute;inset:0;z-index:1;clip-path:inset(-200% 0 0 0)}
+.env-back{position:absolute;inset:0;background:#0b0b0b;border:1px solid var(--env-line)}
+.peek{position:absolute;left:6%;right:6%;top:10%;height:86%;background:var(--paper);color:var(--ink2);padding:28px;display:flex;flex-direction:column;gap:20px;overflow:hidden;transition:transform .55s cubic-bezier(.5,0,.75,0)}
+.peek-lines{flex:1;background:repeating-linear-gradient(to bottom,transparent 0 27px,rgba(4,41,45,.14) 27px 28px)}
+.env.open .peek{transform:translateY(-46%);transition:transform .7s cubic-bezier(.2,.8,.2,1) .7s}
+.env-front{position:absolute;inset:0;z-index:2}
+.env-front::before{content:"";position:absolute;inset:0;background:var(--env);border:7px solid transparent;border-image:var(--stripe) 7;clip-path:polygon(0 0,50% 60%,100% 0,100% 100%,0 100%)}
+.env-flap{position:absolute;left:0;right:0;top:0;height:62%;z-index:3;transform-origin:50% 0;transition:transform .55s cubic-bezier(.5,0,.2,1) .5s,z-index 0s linear .78s}
+.env-flap::before{content:"";position:absolute;inset:0;background:var(--env-hi);border:7px solid transparent;border-bottom:0;border-image:var(--stripe) 7;clip-path:polygon(0 0,100% 0,50% 100%)}
+.env.open .env-flap{transform:rotateX(180deg);z-index:0;transition:transform .6s cubic-bezier(.5,0,.2,1) .25s,z-index 0s linear .55s}
+.env-ln{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.env-ln polyline{fill:none;stroke:var(--env-line);stroke-width:1.5}
+
+/* the front of the envelope: just the wordmark */
+.env-logo{position:absolute;left:7%;bottom:11%;height:clamp(16px,4.2cqw,30px);width:auto;color:var(--fg);overflow:visible}
+
+/* the wax seal: the logo's cyan dot, pressed with _t */
+.seal{-webkit-appearance:none;appearance:none;position:absolute;left:50%;top:62%;z-index:4;width:clamp(68px,15cqw,100px);height:clamp(68px,15cqw,100px);margin:0;padding:0;background:none;border:0;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.seal:hover{transform:translate(-50%,-50%) scale(1.06)}
+.seal:focus-visible{outline:2px solid var(--fg);outline-offset:6px}
+.wax{position:absolute;inset:0;display:grid;place-items:center;background:var(--ac);color:var(--ink2);clip-path:polygon(100% 50%,94.2% 66.1%,87.5% 81.5%,73% 89.8%,58.7% 99.2%,41.7% 97.3%,26.5% 90.7%,11.7% 82.1%,6.8% 65.7%,1% 50%,4.9% 33.6%,11.7% 17.9%,27% 10.2%,41.5% 1.7%,58.2% 3.7%,75% 6.7%,86.8% 19.1%,94.2% 33.9%)}
+.wax::after{content:"";position:absolute;inset:15%;border-radius:50%;border:3px solid rgba(4,41,45,.32)}
+.wax svg{width:46%;height:auto;overflow:visible}
+.env.open .seal{pointer-events:none;animation:crack .5s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes crack{
+  0%{transform:translate(-50%,-50%)}
+  30%{transform:translate(-50%,-50%) scale(1.12) rotate(-6deg)}
+  100%{transform:translate(-50%,-10%) scale(.45) rotate(28deg);opacity:0}
+}
+.env.sealgone .seal{opacity:0;animation:none}
+.env.reseal .seal{animation:stamp .4s cubic-bezier(.2,.8,.2,1) 1.05s both}
+@keyframes stamp{
+  0%{transform:translate(-50%,-50%) scale(1.5);opacity:0}
+  70%{transform:translate(-50%,-50%) scale(.94);opacity:1}
+  100%{transform:translate(-50%,-50%) scale(1);opacity:1}
+}
+.sh-back{min-height:32px;padding:0 12px;font-size:10px}
+.peek .sh-back{display:inline-flex;align-items:center;border-color:var(--ink2);color:var(--ink2)}
+.env-hint{display:inline-flex;align-items:center;gap:10px;margin:0;font-size:11px;letter-spacing:.14em;color:var(--muted);transition:opacity .3s}
+.env-hint.away{opacity:0}
+.env-hint .arw{color:var(--ac)}
+
+/* form fields (shared; the letter restyles them in ink below) */
+.inq{display:flex;flex-direction:column;gap:20px;min-width:0}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:560px){.row2{grid-template-columns:minmax(0,1fr)}}
+.fld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.fld label{font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.fld label::before{content:"> ";color:var(--ac)}
+.fld input,.fld select,.fld textarea{-webkit-appearance:none;appearance:none;width:100%;min-height:48px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:2px;color:var(--fg);font:400 15px/1.5 var(--font-body);transition:border-color .2s}
+.fld textarea{min-height:150px;resize:vertical}
+.fld ::placeholder{color:var(--past)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+.fld [aria-invalid="true"]{border-color:var(--err)}
+.sel{position:relative}
+.sel::after{content:"";position:absolute;right:16px;top:50%;width:10px;height:6px;background:var(--muted);clip-path:polygon(0 0,100% 0,50% 100%);transform:translateY(-50%);pointer-events:none}
+.sel select{padding-right:40px;cursor:pointer}
+.err{margin:0;font-size:13px;line-height:1.6;color:var(--err)}
+.inq-acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.inq-acts small{font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.5}
+.ready{border:1px solid var(--ac);padding:20px;display:flex;flex-direction:column;gap:16px}
+.ready-k{font-size:11px;letter-spacing:.14em;color:var(--ac)}
+.ready pre{margin:0;padding:14px;max-height:240px;overflow:auto;border:1px solid var(--hair);white-space:pre-wrap;overflow-wrap:anywhere;font:400 13px/1.6 var(--font-body);color:var(--soft)}
+.ready-acts{display:flex;flex-wrap:wrap;gap:12px}
+
+/* the letter: light paper, dark ink, the same form */
+.sheet{position:relative;z-index:3;width:min(600px,100%);background:var(--paper);color:var(--ink2);padding:28px 28px 32px;display:flex;flex-direction:column;gap:20px}
+.sh-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding-bottom:12px;border-bottom:2px solid var(--ink2);font:700 11px/1.2 var(--font-ui);letter-spacing:.12em}
+.sh-ch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}
+.sh-c{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:48px;padding-bottom:10px;border-bottom:1px solid rgba(4,41,45,.18)}
+.sh-c .ico{width:20px;height:20px}
+.sh-lb{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sh-lb small{font-size:10px;letter-spacing:.14em;color:var(--ink-soft)}
+.sh-lb span{font-size:13px;overflow-wrap:anywhere}
+@media (max-width:560px){.sh-ch{grid-template-columns:minmax(0,1fr)}.sheet,.peek{padding:20px}}
+.sheet ::selection{background:var(--ink2);color:var(--paper)}
+.sheet .mini{min-height:36px;border-color:var(--ink2);color:var(--ink2)}
+.sheet .mini:hover{background:var(--ink2);color:var(--paper)}
+.sheet .mini:focus-visible,.sheet .btn:focus-visible{outline-color:var(--ink2)}
+.sheet .fld label{color:var(--ink-soft)}
+.sheet .fld label::before{color:var(--ink2)}
+.sheet .fld input,.sheet .fld select,.sheet .fld textarea{background:transparent;border-color:rgba(4,41,45,.35);color:var(--ink2)}
+.sheet .fld ::placeholder{color:rgba(4,41,45,.5)}
+.sheet .fld input:focus,.sheet .fld select:focus,.sheet .fld textarea:focus{border-color:var(--ink2);box-shadow:inset 0 0 0 1px var(--ink2)}
+.sheet .fld [aria-invalid="true"]{border-color:#a1261b}
+.sheet .sel::after{background:var(--ink2)}
+.sheet .err{color:#a1261b}
+.sheet .btn{background:transparent;border-color:var(--ink2);color:var(--ink2)}
+.sheet .btn:hover{background:rgba(4,41,45,.08);border-color:var(--ink2);color:var(--ink2);box-shadow:none}
+.sheet .btn-p{background:var(--ink2);color:var(--paper)}
+.sheet .btn-p:hover{background:#0a3d42;color:var(--paper)}
+.sheet .inq-acts small{color:var(--ink-soft)}
+.sheet .ready{border-color:var(--ink2)}
+.sheet .ready-k{color:var(--ink2)}
+.sheet .ready pre{border-color:rgba(4,41,45,.2);color:var(--ink2)}
