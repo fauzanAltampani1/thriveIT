@@ -1,8 +1,10 @@
 // Everything you are likely to tune lives here. Copy (words) lives in src/content and index.html.
 
 export const CONTACT = {
-  /** WhatsApp: country code + number, no "+" (e.g. '6281234567890'). Empty shows [NOMOR WA] and hides the WhatsApp buttons. */
+  /** WhatsApp: country code + number, no "+" (e.g. '6281234567890'). While empty, the contact slot shows Instagram (below) and the WhatsApp send button is hidden. */
   waNumber: '',
+  /** Instagram handle without "@", used for the contact slot until there is a WhatsApp number */
+  instagram: 'thrivit_',
   email: 'itthrived@gmail.com',
   /** the contact form posts here (functions/api/inquiry.ts); if it fails, the visitor sends the message themselves */
   endpoint: '/api/inquiry',

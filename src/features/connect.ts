@@ -11,10 +11,17 @@ const REQUIRED: readonly [id: string, label: string][] = [['f-name', 'nama'], ['
 
 export function createConnect(): void {
   const waNum = byId('waNum'), waLink = byId<HTMLAnchorElement>('waLink');
+  // until there is a business WhatsApp number, this slot points to Instagram DMs instead
   if (CONTACT.waNumber) {
+    byId('waLb').textContent = 'WHATSAPP';
     waNum.textContent = '+' + CONTACT.waNumber;
     waLink.href = 'https://wa.me/' + CONTACT.waNumber;
-    waLink.hidden = false;
+    waLink.textContent = 'Chat';
+  } else {
+    byId('waLb').textContent = 'INSTAGRAM';
+    waNum.textContent = '@' + CONTACT.instagram;
+    waLink.href = 'https://ig.me/m/' + CONTACT.instagram;
+    waLink.textContent = 'DM';
   }
   byId('mailAddr').textContent = CONTACT.email;
   // envelope art: the wordmark on the front, "_t" pressed into the wax; the logo again in the footer

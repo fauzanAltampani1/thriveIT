@@ -125,7 +125,7 @@ Tempat mengganti kata:
 
 ## Daftar pekerjaan berikutnya
 
-1. **Nomor WhatsApp.** `CONTACT.waNumber` di `src/config.ts` masih kosong, sehingga situs menampilkan `[NOMOR WA]` dan tombol WhatsApp tersembunyi. Isi dengan format `628xxxxxxxxxx` (tanpa `+`). Komentar di `config.ts` masih menyebut `[WA NUMBER]`; teks yang tampil sekarang `[NOMOR WA]`.
+1. **Nomor WhatsApp.** Belum ada WA bisnis. Selama `CONTACT.waNumber` di `src/config.ts` kosong, slot kontak di surat menampilkan Instagram (`CONTACT.instagram`, sekarang `thrivit_`) dengan tombol DM ke `https://ig.me/m/thrivit_`, dan tombol kirim via WhatsApp disembunyikan. Kalau nomor WA sudah ada, isi `waNumber` dengan format `628xxxxxxxxxx`; slotnya otomatis kembali jadi WhatsApp.
 2. **Sambungan Git di Cloudflare.** Pastikan push memicu deployment (lihat bagian Cara deploy).
 3. **Email.** Form → Gmail sudah jalan (`RESEND_API_KEY`, `MAIL_TO` sudah diisi owner). Untuk membalas klien lewat `/balas/`: (a) verifikasi domain thriveit.id di Resend (Resend → Domains → Add, record DNS ditambahkan di Cloudflare), (b) tambahkan di Cloudflare Pages: `REPLY_KEY` (Secret, ≥16 karakter acak), `REPLY_FROM=ThrivIT <halo@thriveit.id>`, opsional `REPLY_TO=halo@thriveit.id` dan `MAIL_FROM=ThrivIT <form@thriveit.id>`, lalu deploy ulang; (c) agar balasan klien ke halo@thriveit.id sampai, aktifkan Cloudflare Email Routing halo@ → itthrived@gmail.com. Kuota Resend gratis 100 email/hari (notifikasi form, balasan, dan bcc dihitung).
 4. **Email domain (opsional, belum dibuat).** Cloudflare → thriveit.id → Email → Email Routing: `hello@thriveit.id` diteruskan ke `itthrived@gmail.com`. Setelah jalan, ganti `CONTACT.email` dan teks email di `index.html`.
