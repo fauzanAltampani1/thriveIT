@@ -104,3 +104,13 @@
 .sheet .ready{border-color:var(--ink2)}
 .sheet .ready-k{color:var(--ink2)}
 .sheet .ready pre{border-color:rgba(4,41,45,.2);color:var(--ink2)}
+
+/* phones held sideways: tighter heading, smaller envelope */
+@media (orientation:landscape) and (max-height:520px){
+  .cn-pin{padding-top:20px}
+  .cn-h{gap:8px}
+  .cn .ttl{font-size:32px}
+  .cn .sub{font-size:13px}
+  .cn-stage{gap:12px;padding-block:12px 8px}
+  .env{width:min(680px,100%,max(200px,calc((100svh - 230px) * 1.55)))}
+}

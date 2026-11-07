@@ -11,7 +11,7 @@ export interface DossierFile {
 }
 
 export const FILES: readonly DossierFile[] = [
-  { name: '01_TENTANG.TXT', word: 'TENTANG', icon: 'prompt', lines: ['Tim kecil yang baru mulai.', 'Kami membantu UMKM memulai langkah digital.', 'Proyek pertama kami sedang berjalan.', 'Anda bicara langsung dengan developernya.'] },
+  { name: '01_TENTANG.TXT', word: 'TENTANG', icon: 'prompt', lines: ['Tim kecil yang baru mulai.', 'Kami membantu UMKM memulai langkah digital.', 'Dua proyek klien pertama sudah selesai.', 'Anda bicara langsung dengan developernya.'] },
   { name: '02_LAYANAN.TXT', word: 'LAYANAN', icon: 'target', lines: ['Yang bisa kami kerjakan:', 'Aplikasi kasir sederhana.', 'Website usaha dan landing page.', 'Aplikasi web sesuai kebutuhan.', 'Database pengganti spreadsheet.', 'Otomasi pekerjaan berulang.'] },
   { name: '03_CARA.TXT', word: 'CARA', icon: 'cycle', lines: ['Dikerjakan bertahap.', 'Ada demo setiap minggu.', 'Versi uji bisa Anda coba sejak awal.', 'Masukan Anda masuk ke tahap berikutnya.'] },
   { name: '04_PRINSIP.TXT', word: 'PRINSIP', icon: 'unlock', lines: ['Kode dan akun milik Anda.', 'Tidak terkunci ke kami.', 'Struktur kode rapi.', 'Ada dokumentasinya.', 'Semua file diserahkan di akhir.'] },

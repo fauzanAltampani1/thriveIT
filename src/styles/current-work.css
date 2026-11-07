@@ -19,12 +19,6 @@
 .card::after{content:"";position:absolute;inset:0;background:#000;opacity:var(--shade,0);pointer-events:none}
 .card-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;padding-bottom:14px;border-bottom:1px solid var(--hair);font-size:11px;letter-spacing:.12em;color:var(--muted)}
 .card-top b{font-weight:700;color:var(--fg)}
-.chip{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;color:var(--ac)}
-.chip::before{content:"";display:block;width:8px;height:8px;background:currentColor;animation:bl 1.4s steps(1,end) infinite}
-.chip.done{color:var(--soft)}
-.chip.done::before,.chip.next::before{animation:none}
-.chip.next{color:var(--muted)}
-.chip.next::before{background:transparent;border:1px solid currentColor}
 .card-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:start}
 .card-txt{display:flex;flex-direction:column;gap:16px;min-width:0}
 .card h3{margin:0;font-size:24px;font-weight:700;line-height:1.25;color:var(--fg);text-wrap:balance}
@@ -33,26 +27,18 @@
 .facts{margin:0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px 20px}
 .facts dt{font-size:11px;letter-spacing:.14em;color:var(--muted);padding-top:3px}
 .facts dd{margin:0;font-size:14px;line-height:1.6;color:var(--fg)}
-.card .out{align-self:flex-start;display:inline-flex;padding:7px 10px;border:1px solid var(--line);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
-.card-vis{display:flex;flex-direction:column;gap:10px;min-width:0}
-.road{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--hair)}
-.road li{display:grid;grid-template-columns:20px minmax(0,1fr);align-items:center;gap:12px;min-height:56px;padding-block:8px;border-bottom:1px solid var(--hair);font-size:13px;line-height:1.4;color:var(--soft)}
-.road li small{display:block;margin-top:2px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
-.road .done .ico{color:var(--past)}
-.road .act{color:var(--fg)}
-.road .act .ico,.road .act small{color:var(--ac)}
-.road .act .ico{animation:bl 1.4s steps(1,end) infinite}
-.road .next .ico{color:var(--dim)}
-.card-big{justify-self:end;align-self:center;font-family:var(--font-head);font-size:128px;line-height:1;color:var(--dim)}
-.card.is-done .card-big{color:var(--past)}
-.card.is-act .card-big{color:var(--ac)}
-.sprints{justify-self:end;align-self:center;display:flex;gap:10px}
-.sprints span{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;color:var(--muted)}
-.sprints i{display:block;width:56px;height:56px;border:1px solid var(--line)}
-.sprints .ok i{background:var(--past);border-color:var(--past)}
-.sprints .now{color:var(--ac)}
-.sprints .now i{background:var(--ac);border-color:var(--ac);animation:bl 1.4s steps(1,end) infinite}
-.sprints .q i{border-style:dashed;border-color:var(--past)}
+.card h3 a{color:inherit;text-decoration:underline;text-decoration-color:var(--past);text-decoration-thickness:1px;text-underline-offset:5px;transition:color .2s,text-decoration-color .2s}
+.card h3 a:hover,.card h3 a:focus-visible{color:var(--ac);text-decoration-color:var(--ac)}
+/* a finished client's site, framed as a small browser window */
+.shot{margin:0;align-self:center;min-width:0;border:1px solid var(--line);background:#000}
+.shot-bar{display:flex;align-items:center;gap:5px;height:24px;padding:0 10px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--muted)}
+.shot-bar i{flex:none;width:6px;height:6px;background:var(--dim)}
+.shot-bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot img{display:block;width:100%;height:auto}
+@media (hover:hover){
+  .shot img{filter:grayscale(1) contrast(1.05);transition:filter .5s}
+  .card:hover .shot img,.card:focus-within .shot img{filter:none}
+}
 .card-foot{display:flex;justify-content:space-between;gap:16px;font-size:11px;letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums}
 .card.open{background:#050505;border-style:dashed;border-color:var(--past)}
 .slots2{justify-self:end;align-self:center;display:flex;gap:14px}
@@ -64,11 +50,43 @@
   .card{margin-top:calc(var(--i) * 24px);padding:20px;gap:16px}
   .card-body{grid-template-columns:minmax(0,1fr);gap:16px}
   .card h3{font-size:20px}
-  .card-big{order:-1;justify-self:start;font-size:64px}
-  .card-vis{display:none}
   .facts{grid-template-columns:minmax(0,1fr);gap:2px}
   .facts dd{margin-bottom:10px;font-size:13px}
-  .sprints,.slots2{order:-1;justify-self:start}
-  .sprints i{width:40px;height:40px}
+  .slots2{order:-1;justify-self:start}
+  .shot{order:-1;align-self:start}
+  .shot-bar{height:20px}
+  .shot img{height:76px;object-fit:cover;object-position:top}
+  .facts dt:nth-of-type(n+3),.facts dd:nth-of-type(n+3),.btn-site{display:none}
   .slots2 i{width:64px;height:64px}
+}
+
+/* phones held sideways: a card fills the short screen, text and screenshot side by side again */
+@media (orientation:landscape) and (max-height:520px){
+  .cw{--ch:calc(100svh - 48px)}
+  .cw-back-in{padding-block:16px 12px}
+  .cw-word{font-size:min(210px,calc((100vw - 32px) / 5.3),24svh)}
+  .cw-cards{--T:12px;--H:calc(100svh - 24px)}
+  .card{margin-top:calc(var(--i) * 8px);padding:14px 22px;gap:10px}
+  .card-top{padding-bottom:8px}
+  .card-body{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:center}
+  .card-txt{gap:10px}
+  .card h3{font-size:18px}
+  .card p{font-size:13px;line-height:1.55}
+  .facts{grid-template-columns:72px minmax(0,1fr);gap:6px 14px}
+  .facts dd{margin-bottom:0;font-size:12.5px;line-height:1.5}
+  .facts dt:nth-of-type(n+3),.facts dd:nth-of-type(n+3){display:block}
+  .btn-site{display:inline-flex}
+  .card .btn{min-height:40px}
+  .shot{order:0;align-self:center}
+  .shot-bar{height:20px}
+  .shot img{height:auto}
+  .slots2{order:0;justify-self:end}
+  .slots2 i{width:64px;height:64px}
+}
+/* short phones held upright */
+@media (max-width:760px) and (max-height:700px){
+  .card{padding:16px;gap:12px}
+  .card h3{font-size:18px}
+  .shot img{height:60px}
+  .facts dd{font-size:12.5px;margin-bottom:8px}
 }

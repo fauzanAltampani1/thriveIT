@@ -51,5 +51,21 @@ function onScroll(): void {
   });
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => { hero.fit(); work.measure(); onScroll(); });
+
+// turning a phone (or resizing a window) changes every section's length, so keep the reader at the same share of the page
+const maxScroll = (): number => document.documentElement.scrollHeight - window.innerHeight;
+let share = 0, lastW = window.innerWidth;
+window.addEventListener('scroll', () => {
+  if (window.innerWidth !== lastW) return;   // mid-rotation: the browser's own clamping, not the reader
+  const m = maxScroll(); if (m > 0) share = window.scrollY / m;
+}, { passive: true });
+window.addEventListener('resize', () => {
+  hero.fit(); work.measure();
+  if (window.innerWidth !== lastW) {          // a width change; height-only resizes are the phone's address bar
+    lastW = window.innerWidth;
+    const keep = share;
+    requestAnimationFrame(() => { window.scrollTo({ top: Math.round(keep * maxScroll()), behavior: 'instant' }); onScroll(); });
+  }
+  onScroll();
+});
 void document.fonts.ready.then(() => hero.fit());

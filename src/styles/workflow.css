@@ -49,3 +49,20 @@
   .wf-li .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
 @media (max-width:640px){.dsk-k.wf-k{display:none}}
+
+/* phones held sideways: info on the left, the drum on the right, steps as a row of keys */
+@media (orientation:landscape) and (max-height:520px){
+  .wf{--fs:28px;--lh:36px}
+  .wf-stage{min-height:0;padding-top:14px;padding-bottom:10px}
+  .wf-body{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);grid-template-rows:none;gap:24px;align-items:center}
+  .drum-wrap{order:0;height:100%;max-height:none}
+  .wf-info{gap:14px}
+  .wf-cur{min-height:0;gap:8px}
+  .wf-cur h3{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wf-cur p{font-size:13px;line-height:1.55}
+  .wf-list{flex-direction:row;gap:6px;border-top:0}
+  .wf-list li{flex:1;min-width:0}
+  .wf-li{grid-template-columns:minmax(0,1fr);gap:6px;min-height:40px;padding:6px 0;border-bottom:0;text-align:center}
+  .wf-li .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .dsk-k.wf-k{display:flex}
+}
