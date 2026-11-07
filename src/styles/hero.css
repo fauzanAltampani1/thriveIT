@@ -59,17 +59,7 @@
 .seg{display:block;width:8px;height:8px;background:var(--dim);transition:background .25s}
 .seg.past{background:var(--past)}
 .seg.on{background:var(--ac)}
-.vr{display:block;width:1px;height:14px;background:var(--line)}
 
-.loop{-webkit-appearance:none;appearance:none;margin:0;padding:0 6px;min-height:44px;background:none;border:0;border-radius:2px;display:inline-flex;align-items:center;gap:10px;font:inherit;letter-spacing:inherit;color:var(--muted);cursor:pointer}
-.loop:hover{color:var(--fg)}
-.loop:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-.sw{position:relative;display:block;width:26px;height:14px;border:1px solid var(--past)}
-.sw i{position:absolute;left:2px;top:2px;width:8px;height:8px;background:var(--past);transition:transform .18s steps(3,end),background .18s}
-.loop[aria-pressed="true"] .sw{border-color:var(--ac)}
-.loop[aria-pressed="true"] .sw i{transform:translateX(12px);background:var(--ac)}
-.loop-v{min-width:3ch;text-align:left}
-.loop[aria-pressed="true"] .loop-v{color:var(--ac)}
 
 /* phones held sideways: the word on the left, the caption and buttons on the right */
 @media (orientation:landscape) and (max-height:520px){

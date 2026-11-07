@@ -44,8 +44,6 @@
       <span class="sbar-l">SCROLL <span class="arw" aria-hidden="true">↓</span></span>
       <span class="segs" id="segs" aria-hidden="true"><i class="seg on"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i><i class="seg"></i></span>
       <span id="segLabel">00 / 05</span>
-      <span class="vr" aria-hidden="true"></span>
-      <button type="button" class="loop" id="loopBtn" aria-pressed="true" aria-label="Ulangi animasi logo"><span class="sw" aria-hidden="true"><i></i></span><span aria-hidden="true">LOOP</span><span class="loop-v" id="loopV" aria-hidden="true">ON</span></button>
     </div>
   </div>
 </div>
@@ -183,7 +181,7 @@
             <a class="btn btn-site" href="https://kasih-izin.ai.studio/" target="_blank" rel="noopener">[ Lihat situsnya ↗ ]</a>
           </div>
           <figure class="shot">
-            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>KASIH-IZIN.AI.STUDIO</span></div>
+            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>PT. KASIH IZIN INDONESIA</span></div>
             <img src="./work/kasih-izin.webp" width="760" height="366" loading="lazy" decoding="async" alt="Tampilan beranda website Kasih Izin: banner jasa legalitas usaha untuk pendirian PT, CV, yayasan, dan koperasi.">
           </figure>
         </div>
@@ -271,16 +269,18 @@
             </select></div>
           </div>
         </div>
+        <div class="hp" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="fld"><label for="f-sum">RINGKASAN PROYEK</label><textarea id="f-sum" name="summary" placeholder="Apa yang ingin dibuat, dan apa yang paling merepotkan sekarang?" required></textarea></div>
         <p class="err" id="inqErr" role="alert" hidden></p>
         <div class="inq-acts">
-          <button type="submit" class="btn btn-p">[ Susun Pesan ]</button>
-          <small>Pesan disusun di sini, lalu Anda kirim lewat WhatsApp atau email.</small>
+          <button type="submit" class="btn btn-p" id="inqSend">[ Kirim Pesan ]</button>
+          <small>Pesan langsung masuk ke email kami.</small>
         </div>
         <div class="ready" id="ready" hidden>
-          <span class="ready-k">PESAN SIAP // PILIH CARA KIRIM</span>
+          <span class="ready-k" id="readyK">PESAN SIAP // PILIH CARA KIRIM</span>
+          <p class="ready-note" id="readyNote"></p>
           <pre id="msg"></pre>
-          <div class="ready-acts">
+          <div class="ready-acts" id="readyActs">
             <a class="btn btn-p" id="sendWa" href="#connect" target="_blank" rel="noopener" hidden>[ Kirim via WhatsApp ]</a>
             <a class="btn" id="sendMail" href="#connect">[ Kirim via email ]</a>
             <button type="button" class="btn" id="copyMsg">[ Salin pesan ]</button>

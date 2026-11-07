@@ -1,5 +1,5 @@
 // 01 · Hero: five pixel tiles. Hover (or scroll through the pinned hero) swaps the giant word to that service, with
-// letters rising in; with nothing picked, the _thrivit logo glitches in and out on a loop the visitor can switch off.
+// letters rising in; with nothing picked, the _thrivit logo glitches in and out on a loop.
 import { DEFAULT_CAPTION, SERVICES } from '../../content/services';
 import { byId, esc, qs } from '../../core/dom';
 import { letters } from '../../core/glyphs';
@@ -18,14 +18,12 @@ export interface Hero {
 
 type LayerKey = 'A' | 'B';
 const OUT_DUR = 240, OUT_STAGGER = 8, GAP = 50;
-const LOOP_KEY = 'thrivit-loop';
 
 export function createHero(scenes: Scenes, cursor: Cursor): Hero {
   const track = byId('top'), stage = byId('stage'), wrap = byId('wrap'), tilesEl = byId('tiles');
   const logo = byId('logo'), layers: Record<LayerKey, HTMLElement> = { A: byId('layerA'), B: byId('layerB') };
   const cap = byId('cap'), capK = byId('capK'), capT = byId('capT'), capP = byId('capP');
   const segEls = Array.from(byId('segs').children), segLabel = byId('segLabel');
-  const loopBtn = byId<HTMLButtonElement>('loopBtn'), loopV = byId('loopV');
 
   tilesEl.innerHTML = SERVICES.map((s, i) =>
     '<button type="button" class="tile" id="tile-' + i + '" aria-label="' + esc(s.name) + '">' +
@@ -33,21 +31,8 @@ export function createHero(scenes: Scenes, cursor: Cursor): Hero {
   ).join('');
   const tileEls = Array.from(tilesEl.children) as HTMLButtonElement[];
 
-  /* ---------- the logo loop, and its switch (remembered per browser) ---------- */
+  /* ---------- the logo: glitches in, holds, glitches out, and loops ---------- */
   const glitch = createGlitch(byId('gl'));
-  let loopOn = true;
-  try { loopOn = localStorage.getItem(LOOP_KEY) !== '0'; } catch { /* storage blocked: default on */ }
-  function syncLoop(): void {
-    loopBtn.setAttribute('aria-pressed', String(loopOn));
-    loopV.textContent = loopOn ? 'ON' : 'OFF';
-    glitch.setLoop(loopOn);
-  }
-  loopBtn.addEventListener('click', () => {
-    loopOn = !loopOn;
-    try { localStorage.setItem(LOOP_KEY, loopOn ? '1' : '0'); } catch { /* not remembered, still switched */ }
-    syncLoop();
-  });
-  syncLoop();
 
   /* ---------- hover / scroll switching ---------- */
   let hover = -1, scrollIdx = -1, active = -1, front: LayerKey = 'A', leaveUntil = 0;

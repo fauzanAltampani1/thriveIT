@@ -1,6 +1,6 @@
 // 05 · Connect: a sealed airmail envelope. Breaking the seal pulls out the letter, which unfolds into the inquiry form;
-// "Fold back" plays the same film backwards and keeps what was typed. The form builds a message the visitor sends
-// themselves on WhatsApp or by email: nothing is posted to a server.
+// "Fold back" plays the same film backwards and keeps what was typed. On submit the form is posted to /api/inquiry
+// (functions/api/inquiry.ts), which emails it to us; if that fails, the visitor sends the built message on WhatsApp or by email.
 import { CONTACT } from '../config';
 import { byId, qs } from '../core/dom';
 import { logoInner, sealMark } from '../core/glyphs';
@@ -141,8 +141,36 @@ export function createConnect(): void {
   const field = (id: string): HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement => byId(id);
   const val = (id: string): string => field(id).value.trim();
 
+  const sendBtn = byId<HTMLButtonElement>('inqSend'), readyK = byId('readyK'), readyNote = byId('readyNote'), readyActs = byId('readyActs');
+  const SEND_LABEL = sendBtn.textContent ?? '';
+  let startedAt = 0, sending = false;
+  inq.addEventListener('input', () => { if (!startedAt) startedAt = Date.now(); });
+
+  // hand the form to the site's own endpoint, which emails it to us; false on any failure, so the visitor can send it themselves
+  async function deliver(): Promise<boolean> {
+    const ctrl = new AbortController(), timer = window.setTimeout(() => ctrl.abort(), 15000);
+    try {
+      const res = await fetch(CONTACT.endpoint, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: val('f-name'), company: val('f-co'), contact: val('f-contact'), service: field('f-svc').value, summary: val('f-sum'),
+          website: val('f-web'), ms: startedAt ? Date.now() - startedAt : 0,
+        }),
+        signal: ctrl.signal,
+      });
+      const body = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+      return res.ok && body?.ok === true;
+    } catch {
+      return false;
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
   inq.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (sending) return;
     const missing = REQUIRED.filter((r) => !val(r[0]));
     REQUIRED.forEach((r) => field(r[0]).setAttribute('aria-invalid', String(!val(r[0]))));
     if (missing.length) {
@@ -166,8 +194,28 @@ export function createConnect(): void {
     sendMail.href = 'mailto:' + CONTACT.email + '?subject=' + encodeURIComponent('Proyek baru: ' + val('f-name')) + '&body=' + encodeURIComponent(msg);
     if (CONTACT.waNumber) { sendWa.href = 'https://wa.me/' + CONTACT.waNumber + '?text=' + encodeURIComponent(msg); sendWa.hidden = false; }
     else sendWa.hidden = true;
-    ready.hidden = false;
-    ready.scrollIntoView({ block: 'nearest', behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+
+    sending = true;
+    sendBtn.disabled = true;
+    sendBtn.textContent = '[ Mengirim… ]';
+    void deliver().then((sent) => {
+      sending = false;
+      sendBtn.disabled = false;
+      sendBtn.textContent = SEND_LABEL;
+      if (sent) {
+        readyK.textContent = 'TERKIRIM // PESAN SUDAH MASUK KE KAMI';
+        readyNote.textContent = 'Terima kasih. Kami balas lewat kontak yang Anda tulis.';
+        readyActs.hidden = true;
+        inq.reset();
+        startedAt = 0;
+      } else {
+        readyK.textContent = 'BELUM TERKIRIM // KIRIM SENDIRI';
+        readyNote.textContent = 'Kirim otomatis sedang tidak bisa. Pesan Anda sudah disusun di bawah; kirim lewat tombol ini.';
+        readyActs.hidden = false;
+      }
+      ready.hidden = false;
+      ready.scrollIntoView({ block: 'nearest', behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+    });
   });
   copyMsg.addEventListener('click', () => copyText(msgEl.textContent ?? '', copyMsg, '[ Salin pesan ]', msgEl));
 }
