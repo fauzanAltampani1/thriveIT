@@ -98,7 +98,7 @@ Urutan section (`SCENE_IDS`): `top` (hero) → `dossier` → `workflow` → `wor
 - **Dossier:** komputer retro, lima file teks yang diketik ke layar saat scroll; tab bisa diklik.
 - **Workflow:** drum 3D berisi baris pendek; baris pertama tiap langkah adalah kata kuncinya. Baris maksimal sekitar 17 karakter supaya muat di HP.
 - **Proyek (`work`):** kata besar "_current work" berputar di belakang, kartu-kartu menumpuk saat scroll. Kartu 1 = HIPMI, kartu 2 = Kasih Izin, kartu 3 = slot terbuka. Teks dan screenshot ada langsung di `index.html`; gambarnya di `public/work/*.webp` (lebar 760 px). Di desktop screenshot tampil abu-abu dan berwarna saat kartu di-hover; di HP tampil sebagai strip di atas kartu, dan baris fakta ke-3 serta tombol "Lihat situsnya" disembunyikan supaya muat. Kalau menambah kartu, ubah juga penomoran `01 / 03` di tiap kartu dan cek tinggi kartu di lebar 390 px.
-- **Kontak:** amplop dengan segel lilin. Klik segel untuk membuka surat yang berubah jadi form. Form tidak mengirim ke server: ia hanya menyusun pesan, lalu pengunjung mengirim sendiri lewat WhatsApp (`wa.me`) atau email (`mailto:`). Footer menyatu di section ini.
+- **Kontak:** amplop dengan segel lilin. Klik segel untuk membuka surat yang berubah jadi form. Saat dikirim, form mem-POST JSON ke `/api/inquiry` (Cloudflare Pages Function di `functions/api/inquiry.ts`), yang meneruskannya sebagai email lewat Resend ke `MAIL_TO`. Function itu menolak origin lain, membatasi panjang field, dan diam-diam membuang kiriman bot (field tersembunyi `website` terisi, atau form dikirim < 1,5 detik setelah mulai diketik). Kalau gagal atau belum dikonfigurasi (balasan 503), pengunjung melihat "BELUM TERKIRIM // KIRIM SENDIRI" dengan tombol WhatsApp, email (`mailto:`) dan salin. Footer menyatu di section ini.
 
 ## Pedoman teks (copy)
 
@@ -125,9 +125,10 @@ Tempat mengganti kata:
 
 1. **Nomor WhatsApp.** `CONTACT.waNumber` di `src/config.ts` masih kosong, sehingga situs menampilkan `[NOMOR WA]` dan tombol WhatsApp tersembunyi. Isi dengan format `628xxxxxxxxxx` (tanpa `+`). Komentar di `config.ts` masih menyebut `[WA NUMBER]`; teks yang tampil sekarang `[NOMOR WA]`.
 2. **Sambungan Git di Cloudflare.** Pastikan push memicu deployment (lihat bagian Cara deploy).
-3. **Email domain (opsional, belum dibuat).** Cloudflare → thriveit.id → Email → Email Routing: `hello@thriveit.id` diteruskan ke `itthrived@gmail.com`. Setelah jalan, ganti `CONTACT.email` dan teks email di `index.html`.
-4. **Link HIPMI.** Setelah situs HIPMI di-hosting, jadikan judul kartunya link (seperti kartu Kasih Izin), tambahkan tombol "Lihat situsnya", dan ganti baris STATUS. Kartu klien sengaja tanpa label status (chip) di pojok kanan atas; owner tidak mau.
-5. **Opsional:** redirect `www.thriveit.id` → `thriveit.id` (Cloudflare Redirect Rules), tag Open Graph untuk pratinjau link di WhatsApp/IG, dan link bio IG ke `https://thriveit.id`.
+3. **Kirim otomatis form kontak.** Kode sudah ada, tinggal dikonfigurasi oleh owner: daftar di resend.com memakai `itthrived@gmail.com`, buat API key, lalu di Cloudflare Pages → thriveit → Settings → Variables and Secrets tambahkan `RESEND_API_KEY` (tipe Secret) dan `MAIL_TO=itthrived@gmail.com` untuk Production, lalu deploy ulang. Selama pengirimnya `onboarding@resend.dev`, Resend hanya bisa mengirim ke email pemilik akun Resend. Untuk pengirim seperti `form@thriveit.id`, verifikasi domain thriveit.id di Resend (record DNS ditambahkan di Cloudflare) lalu isi `MAIL_FROM`. Batas paket gratis Resend: 100 email/hari, 3.000/bulan.
+4. **Email domain (opsional, belum dibuat).** Cloudflare → thriveit.id → Email → Email Routing: `hello@thriveit.id` diteruskan ke `itthrived@gmail.com`. Setelah jalan, ganti `CONTACT.email` dan teks email di `index.html`.
+5. **Link HIPMI.** Setelah situs HIPMI di-hosting, jadikan judul kartunya link (seperti kartu Kasih Izin), tambahkan tombol "Lihat situsnya", dan ganti baris STATUS. Kartu klien sengaja tanpa label status (chip) di pojok kanan atas; owner tidak mau.
+6. **Opsional:** redirect `www.thriveit.id` → `thriveit.id` (Cloudflare Redirect Rules), tag Open Graph untuk pratinjau link di WhatsApp/IG, dan link bio IG ke `https://thriveit.id`.
 
 ## Catatan lain
 
@@ -135,4 +136,4 @@ Tempat mengganti kata:
 - Folder induk `H:\TRHIEVE` berisi juga `reel/` (sumber reel IG 9:16, render Playwright + ffmpeg, musik sintetis, voiceover) dan `deploy/` (contoh nginx/Caddy). Keduanya bukan bagian repo ini.
 - `H:\TRHIEVE\_to_delete\` berisi dua file JS build lama yang boleh dihapus.
 - Pernah ada repo git nyasar di `C:\Users\pc\.git` (dari `git init` yang salah folder). Jangan pernah `git add` di `C:\Users\pc`.
-- Tidak ada rahasia/API key di proyek ini, dan memang tidak perlu ada.
+- Rahasia hanya ada di Cloudflare (Pages → thriveit → Settings → Variables and Secrets), tidak pernah di repo: `RESEND_API_KEY` (secret), `MAIL_TO`, dan opsional `MAIL_FROM`.
