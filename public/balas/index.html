@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Balas klien | ThrivIT</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* the reply desk: same paper and ink as the letter on the site */
+  :root{--bg:#000;--fg:#fafafa;--muted:#8f8f8f;--line:#262626;--ac:#0ECEE1;--paper:#e9f6f7;--ink:#04292d;--ink-soft:#3e6266;--rule:rgba(4,41,45,.22);--err:#a1261b;--mono:'Space Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{color-scheme:dark}
+  body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.6 var(--mono);-webkit-font-smoothing:antialiased;padding:0 16px}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 0 48px}
+  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .brand{font:700 22px/1 var(--mono);letter-spacing:1px}
+  .brand i{font-style:normal;color:var(--ac)}
+  .kick{font-size:11px;letter-spacing:.14em;color:var(--muted)}
+  h1{margin:28px 0 6px;font:400 32px/1.2 'DotGothic16',var(--mono)}
+  .lead{margin:0 0 24px;color:var(--muted);max-width:62ch}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+  @media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+  .sheet{background:var(--paper);color:var(--ink);padding:24px 24px 28px;display:flex;flex-direction:column;gap:16px}
+  .sh-top{display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:2px solid var(--ink);font:700 11px/1.3 var(--mono);letter-spacing:.12em}
+  .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  @media (max-width:560px){.row2{grid-template-columns:minmax(0,1fr)}.sheet{padding:18px}}
+  .fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+  label{font-size:11px;letter-spacing:.14em;color:var(--ink-soft)}
+  label::before{content:"> ";color:var(--ink)}
+  input,textarea,select{width:100%;min-height:44px;padding:10px 12px;background:transparent;border:1px solid rgba(4,41,45,.35);border-radius:2px;color:var(--ink);font:400 14px/1.5 var(--mono);-webkit-appearance:none;appearance:none}
+  textarea{min-height:200px;resize:vertical}
+  #ref{min-height:96px;color:var(--ink-soft)}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+  ::placeholder{color:rgba(4,41,45,.5)}
+  .hint{font-size:12px;color:var(--ink-soft);margin:0}
+  .tpl{display:flex;flex-wrap:wrap;gap:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;background:transparent;border:1px solid var(--ink);border-radius:2px;color:var(--ink);font:700 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+  .btn:hover{background:rgba(4,41,45,.08)}
+  .btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .btn.s{min-height:36px;padding:0 12px;font-size:11px}
+  .btn-p{background:var(--ink);color:var(--paper)}
+  .btn-p:hover{background:#0a3d42}
+  .btn[disabled]{opacity:.55;cursor:default}
+  .acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .status{margin:0;font-size:13px;line-height:1.5}
+  .status.ok{color:#0b6b52}.status.bad{color:var(--err)}
+  .pv{position:sticky;top:16px;display:flex;flex-direction:column;gap:10px}
+  .pv .kick{display:flex;justify-content:space-between}
+  iframe{width:100%;height:min(80vh,900px);border:1px solid var(--line);background:#efeee9}
+  .empty{display:grid;place-items:center;height:240px;border:1px dashed var(--line);color:var(--muted);font-size:12px;letter-spacing:.1em;text-align:center;padding:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="brand">_thr<i>i</i>v<i>i</i>t</span>
+    <span class="kick">MEJA BALASAN // INTERNAL</span>
+  </header>
+  <h1>Balas calon klien</h1>
+  <p class="lead">Tulis balasan di sini, lihat pratinjaunya, lalu kirim. Klien menerimanya sebagai surat ThrivIT, dan salinannya masuk ke inbox kita.</p>
+
+  <div class="grid">
+    <form class="sheet" id="f" novalidate>
+      <div class="sh-top"><span>DARI: _THRIVIT</span><span id="toTop">UNTUK: -</span></div>
+      <div class="row2">
+        <div class="fld"><label for="to">EMAIL KLIEN</label><input id="to" type="email" autocomplete="off" placeholder="nama@usaha.com" required></div>
+        <div class="fld"><label for="name">NAMA KLIEN</label><input id="name" autocomplete="off" placeholder="Budi"></div>
+      </div>
+      <div class="fld"><label for="subject">SUBJEK</label><input id="subject" autocomplete="off" placeholder="Tentang proyek Anda" required></div>
+      <div class="fld">
+        <label for="message">ISI SURAT</label>
+        <div class="tpl" role="group" aria-label="Mulai dari template">
+          <button type="button" class="btn s" data-tpl="thanks">Terima kasih + ajak ngobrol</button>
+          <button type="button" class="btn s" data-tpl="detail">Minta detail</button>
+          <button type="button" class="btn s" data-tpl="offer">Kirim penawaran</button>
+        </div>
+        <textarea id="message" placeholder="Tanpa salam pembuka: &quot;Halo Budi,&quot; ditambahkan otomatis. Pisahkan paragraf dengan baris kosong." required></textarea>
+      </div>
+      <div class="fld"><label for="ref">KUTIPAN PESAN KLIEN (OPSIONAL)</label><textarea id="ref" placeholder="Ditampilkan di bawah surat sebagai &quot;Pesan Anda sebelumnya&quot;."></textarea></div>
+      <div class="row2">
+        <div class="fld"><label for="sender">NAMA PENGIRIM</label><input id="sender" autocomplete="name" placeholder="Tim ThrivIT"></div>
+        <div class="fld"><label for="key">KUNCI ADMIN</label><input id="key" type="password" autocomplete="current-password" required></div>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn" id="pvBtn">[ Pratinjau ]</button>
+        <button type="submit" class="btn btn-p" id="sendBtn">[ Kirim surat ]</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="pv">
+      <span class="kick"><span>PRATINJAU</span><span id="pvWhen"></span></span>
+      <div class="empty" id="pvEmpty">Tekan [ Pratinjau ] untuk melihat surat seperti yang diterima klien.</div>
+      <iframe id="pv" title="Pratinjau surat" hidden></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const f = $('f'), status = $('status'), sendBtn = $('sendBtn'), pvBtn = $('pvBtn'), pv = $('pv');
+  const fields = ['to', 'name', 'subject', 'message', 'ref', 'sender', 'key'];
+  const store = (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} };
+  const load = (s, k) => { try { return s.getItem(k) || ''; } catch (e) { return ''; } };
+  let service = '';
+
+  // filled in from the button in the new-inquiry email (the details ride in the #fragment), then the address bar is cleaned
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get('to')) $('to').value = h.get('to');
+  if (h.get('name')) $('name').value = h.get('name');
+  if (h.get('ref')) $('ref').value = h.get('ref');
+  service = h.get('service') || '';
+  if (location.hash) history.replaceState(null, '', location.pathname);
+  $('subject').value = service && service !== 'Belum tahu' ? 'Tentang ' + service + ' untuk usaha Anda' : 'Terima kasih sudah menghubungi ThrivIT';
+  $('sender').value = load(localStorage, 'thrivit-sender') || 'Tim ThrivIT';
+  $('key').value = load(sessionStorage, 'thrivit-key');
+  const syncTop = () => { $('toTop').textContent = 'UNTUK: ' + (($('name').value.trim() || $('to').value.trim() || '-').toUpperCase()); };
+  syncTop(); $('name').addEventListener('input', syncTop); $('to').addEventListener('input', syncTop);
+
+  const TPL = {
+    thanks: () => 'Terima kasih sudah menghubungi ThrivIT' + (service && service !== 'Belum tahu' ? ' soal ' + service : '') + '. Pesan Anda sudah kami baca.\n\nSupaya kami bisa memberi gambaran yang tepat, kami ingin ngobrol sebentar (sekitar 30 menit) tentang usaha Anda dan bagian yang paling merepotkan sekarang. Kapan waktu yang paling nyaman untuk Anda minggu ini? Bisa lewat telepon, WhatsApp, atau video call.\n\nSetelah ngobrol, kami kirim ringkasan kebutuhan dan perkiraan biaya secara tertulis.',
+    detail: () => 'Terima kasih atas pesannya. Sebelum kami hitung perkiraan biaya dan waktu pengerjaan, boleh kami minta beberapa detail berikut?\n\n1. Saat ini prosesnya dikerjakan dengan apa (buku, Excel, aplikasi lain)?\n2. Berapa orang yang akan memakai sistemnya?\n3. Apakah ada contoh website atau aplikasi yang Anda suka?\n4. Kapan target sistem ini mulai dipakai?\n\nJawaban singkat saja sudah cukup.',
+    offer: () => 'Terima kasih sudah meluangkan waktu untuk ngobrol. Berikut ringkasan penawaran kami:\n\nLingkup: [tulis lingkup pekerjaan]\nPerkiraan waktu: [jumlah minggu], dengan demo setiap minggu\nBiaya: [nominal], dibayar per tahap\n\nKode, akun, dan semua file menjadi milik Anda setelah proyek selesai. Kalau ada bagian yang ingin diubah, balas saja email ini.',
+  };
+  document.querySelectorAll('[data-tpl]').forEach((b) => b.addEventListener('click', () => {
+    const m = $('message');
+    if (m.value.trim() && !confirm('Ganti isi surat dengan template ini?')) return;
+    m.value = TPL[b.dataset.tpl](); m.focus();
+  }));
+
+  const body = (extra) => Object.assign(Object.fromEntries(fields.map((k) => [k, $(k).value])), extra);
+  const say = (text, kind) => { status.textContent = text; status.className = 'status' + (kind ? ' ' + kind : ''); };
+  const ERR = {
+    key: 'Kunci admin salah.', to: 'Email klien belum benar.', missing: 'Subjek dan isi surat wajib diisi.',
+    'not-configured': 'Server belum disetel (lihat REPLY_KEY / REPLY_FROM di Cloudflare).', 'mail-failed': 'Resend menolak email. Cek domain pengirim di Resend.',
+    'too-long': 'Ada isian yang terlalu panjang.',
+  };
+  async function call(extra) {
+    try {
+      const res = await fetch('/api/reply', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body(extra)) });
+      const out = await res.json().catch(() => ({}));
+      return res.ok && out.ok ? { ok: true, html: out.html } : { ok: false, msg: ERR[out.error] || ('Gagal (' + res.status + ').') };
+    } catch (e) { return { ok: false, msg: 'Tidak bisa menghubungi server.' }; }
+  }
+  const remember = () => { store('thrivit-key', $('key').value); try { localStorage.setItem('thrivit-sender', $('sender').value); } catch (e) {} };
+
+  pvBtn.addEventListener('click', async () => {
+    if (!$('key').value) { say('Isi kunci admin dulu.', 'bad'); $('key').focus(); return; }
+    pvBtn.disabled = true; say('Menyusun pratinjau…');
+    const r = await call({ preview: true, to: $('to').value || 'pratinjau@contoh.com', subject: $('subject').value || '(subjek)', message: $('message').value || '(isi surat)' });
+    pvBtn.disabled = false;
+    if (!r.ok) { say(r.msg, 'bad'); return; }
+    remember();
+    pv.srcdoc = r.html; pv.hidden = false; $('pvEmpty').hidden = true;
+    $('pvWhen').textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    say('');
+  });
+
+  let armed = false;
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const to = $('to').value.trim();
+    if (!to || !$('subject').value.trim() || !$('message').value.trim() || !$('key').value) { say('Lengkapi email klien, subjek, isi surat, dan kunci admin.', 'bad'); return; }
+    if (!armed) { armed = true; sendBtn.textContent = '[ Yakin? Kirim ke ' + to + ' ]'; setTimeout(() => { armed = false; sendBtn.textContent = '[ Kirim surat ]'; }, 6000); return; }
+    armed = false; sendBtn.disabled = true; sendBtn.textContent = '[ Mengirim… ]'; say('');
+    const r = await call({});
+    sendBtn.disabled = false; sendBtn.textContent = '[ Kirim surat ]';
+    if (!r.ok) { say(r.msg, 'bad'); return; }
+    remember();
+    say('Terkirim ke ' + to + '. Salinannya ada di inbox ThrivIT.', 'ok');
+    $('message').value = '';
+  });
+})();
+</script>
+</body>
+</html>
