@@ -23,7 +23,9 @@ export function createConnect(): void {
   byId('footLogo').innerHTML = logoInner(false);
 
   const env = byId('env'), seal = byId<HTMLButtonElement>('seal'), sheet = byId('sheet'), peek = byId('peek');
-  const envHint = byId('envHint'), foldBack = byId<HTMLButtonElement>('foldBack');
+  const envHint = byId('envHint'), envHintT = byId('envHintT'), foldBack = byId<HTMLButtonElement>('foldBack');
+  const post = byId('post'), postDate = byId('postDate'), cnLive = byId('cnLive');
+  const HINT = envHintT.textContent ?? '', SEAL_LABEL = seal.getAttribute('aria-label') ?? '';
   let lettered = false, busy = false;
 
   // where the risen letter sits, and how much of it shows above the pocket
@@ -45,8 +47,29 @@ export function createConnect(): void {
     sheet.style.clipPath = 'inset(0 0 ' + Math.max(0, sr.height - f.shown).toFixed(1) + 'px 0)';
   }
 
+  // after a message went out: a postmark on the envelope, and the hint says who we will answer
+  function markSent(contact: string): void {
+    const d = new Date(), p2 = (n: number): string => String(n).padStart(2, '0');
+    postDate.textContent = p2(d.getDate()) + '.' + p2(d.getMonth() + 1) + '.' + String(d.getFullYear()).slice(2);
+    post.hidden = false;
+    env.classList.add('sent');
+    envHint.classList.add('done');
+    const c = contact.length > 34 ? contact.slice(0, 33) + '…' : contact;
+    envHintT.textContent = 'TERKIRIM · KAMI BALAS KE ' + c.toUpperCase();
+    seal.setAttribute('aria-label', 'Pesan terkirim. Buka segel untuk menulis pesan baru');
+  }
+  function clearSent(): void {
+    if (!env.classList.contains('sent')) return;
+    env.classList.remove('sent');
+    envHint.classList.remove('done');
+    post.hidden = true;
+    envHintT.textContent = HINT;
+    seal.setAttribute('aria-label', SEAL_LABEL);
+  }
+
   seal.addEventListener('click', () => {
     if (lettered || busy) return;
+    clearSent();
     lettered = true; busy = true;
     seal.setAttribute('aria-expanded', 'true');
     env.classList.remove('reseal');
@@ -79,13 +102,14 @@ export function createConnect(): void {
   });
 
   // the same film, backwards: the letter folds into the envelope, the flap closes, the seal is pressed again
-  function closeLetter(): void {
+  function closeLetter(after?: () => void): void {
     if (!lettered || busy) return;
     busy = true;
     const finish = (): void => {
       lettered = false; busy = false;
       env.classList.remove('reseal');
       seal.setAttribute('aria-expanded', 'false');
+      after?.();
       seal.focus({ preventScroll: true });
     };
     if (reducedMotion.matches) {
@@ -115,7 +139,7 @@ export function createConnect(): void {
       window.setTimeout(finish, 1500);
     }, 720);
   }
-  foldBack.addEventListener('click', closeLetter);
+  foldBack.addEventListener('click', () => closeLetter());
   sheet.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); closeLetter(); } });
 
   // copy to the clipboard; where that is refused, select the text so the visitor can copy it
@@ -144,6 +168,8 @@ export function createConnect(): void {
   const sendBtn = byId<HTMLButtonElement>('inqSend'), readyK = byId('readyK'), readyNote = byId('readyNote'), readyActs = byId('readyActs');
   const SEND_LABEL = sendBtn.textContent ?? '';
   let startedAt = 0, sending = false;
+  // while sending (and right after) nothing on the sheet can be changed or sent twice
+  const lock = (on: boolean): void => { Array.from(inq.elements).forEach((el) => { (el as HTMLInputElement).disabled = on; }); };
   inq.addEventListener('input', () => { if (!startedAt) startedAt = Date.now(); });
 
   // hand the form to the site's own endpoint, which emails it to us; false on any failure, so the visitor can send it themselves
@@ -196,23 +222,27 @@ export function createConnect(): void {
     else sendWa.hidden = true;
 
     sending = true;
-    sendBtn.disabled = true;
+    ready.hidden = true;
+    lock(true);
     sendBtn.textContent = '[ Mengirim… ]';
     void deliver().then((sent) => {
       sending = false;
-      sendBtn.disabled = false;
-      sendBtn.textContent = SEND_LABEL;
       if (sent) {
-        readyK.textContent = 'TERKIRIM // PESAN SUDAH MASUK KE KAMI';
-        readyNote.textContent = 'Terima kasih. Kami balas lewat kontak yang Anda tulis.';
-        readyActs.hidden = true;
-        inq.reset();
-        startedAt = 0;
-      } else {
-        readyK.textContent = 'BELUM TERKIRIM // KIRIM SENDIRI';
-        readyNote.textContent = 'Kirim otomatis sedang tidak bisa. Pesan Anda sudah disusun di bawah; kirim lewat tombol ini.';
-        readyActs.hidden = false;
+        // the letter is done: show it, fold it back into the envelope, postmark it; the next open starts a fresh sheet
+        const contact = val('f-contact');
+        sendBtn.textContent = '[ Terkirim ✓ ]';
+        cnLive.textContent = 'Pesan terkirim. Terima kasih, kami balas lewat ' + contact + '.';
+        const reset = (): void => { inq.reset(); startedAt = 0; lock(false); sendBtn.textContent = SEND_LABEL; ready.hidden = true; };
+        const done = (): void => { markSent(contact); reset(); };
+        if (lettered) window.setTimeout(() => closeLetter(done), reducedMotion.matches ? 0 : 1100);
+        else done();
+        return;
       }
+      lock(false);
+      sendBtn.textContent = SEND_LABEL;
+      readyK.textContent = 'BELUM TERKIRIM // KIRIM SENDIRI';
+      readyNote.textContent = 'Kirim otomatis sedang tidak bisa. Pesan Anda sudah disusun di bawah; kirim lewat tombol ini.';
+      readyActs.hidden = false;
       ready.hidden = false;
       ready.scrollIntoView({ block: 'nearest', behavior: reducedMotion.matches ? 'auto' : 'smooth' });
     });

@@ -3,7 +3,7 @@
   html{scroll-behavior:auto}
   .ch{transition-duration:1ms!important;transition-delay:0ms!important}
   .cap.swap>*{animation-duration:1ms!important;animation-delay:0ms!important}
-  .arw,.caret,.s-caret,.pc-led,.scr-in.jit,.wf-cur.swap>*{animation:none}
+  .arw,.caret,.s-caret,.pc-led,.scr-in.jit,.wf-cur.swap>*,.post{animation:none}
   .scr-title.rise .t{transition:none}
   .tile,.sw i,.cw-word .rs{transition:none}
 }
